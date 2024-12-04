@@ -22,3 +22,15 @@ class Conexion:
 
     def rollback(self):
         self.db.rollback()
+
+    def agregarUsuario(self, nombre, apellido, email, password, fecha_registro):    
+        try:
+            sql = f"INSERT INTO usuarios (nombre, apellido, email, password, fecha_registro)" \
+                f"VALUES ('{nombre}', '{apellido}', '{email}' '{password}', '{fecha_registro}')"
+            self.ejecuta_query(sql)
+            self.commit()
+            return True
+        except Exception as e:
+            input(f"Error al ejecutar la consulta. Error: {e} ")
+            self.rollback()
+            return False

@@ -1,8 +1,8 @@
 import os
 from time import sleep
 from getpass import getpass
-from my_package.DTO.Usuario import Usuario
-from my_package.DAO.Conexion import Conexion
+from DTO.Usuario import Usuario
+from DAO.Conexion import Conexion
 from getpass import getpass
 
 host='localhost'
@@ -161,8 +161,10 @@ def registrar_usuario():
             except:
                 print("Numero no valido")
                 continue
+        
 
-        user = Usuario.registrar_usuario(username, password, nombre, apellido, correo, tipo)
+        user = Usuario(nombre, apellido, correo, password=password)
+        user.registrar_usuario()
         input('Presione una tecla para continuar')
         break
 
