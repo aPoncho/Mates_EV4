@@ -1,14 +1,14 @@
 import os
 from time import sleep
 from getpass import getpass
-from DTO.Usuario import Usuario
-from DAO.Conexion import Conexion
+from package.DTO.Usuario import Usuario
+from package.DAO.Conexion import Conexion
 from getpass import getpass
 
 host='localhost'
-user='userempresa'
-password='V3ntana.13'
-db='empresa'
+user='userappdb'
+password='pass123'
+db='appdb'
 
 def menu_login():
     while True:
@@ -73,26 +73,50 @@ def registrar_usuario():
         print("================================")
         print("      REGISTRO DE USUARIO       ")
         print("================================")
-        host='localhost'
-        user='userempresa'
-        password='V3ntana.13'
-        db='empresa'
-        while True:
-            username = input('Ingrese nombre de usuario: ')
-            if username == '' or ' ' in username:
-                print('nombre de usuario no valido')
-            else: 
-                break
-        con = Conexion(host, user, password, db)
-        usuario_existente = con.obtener_usuario(username)
+        # host='localhost'
+        # user='userappdb'
+        # password_con='pass123'
+        # db='appdb'
+        # while True:
+        #     username = input('Ingrese nombre de usuario: ')
+        #     if username == '' or ' ' in username:
+        #         print('nombre de usuario no valido')
+        #     else: 
+        #         break
+        # con = Conexion(host, user, password_con, db)
+        # usuario_existente = con.obtener_usuario(username)
 
-        if usuario_existente:
-            print("nombre de usuario ya existe")
-            seguir = input("¿Desea continuar? Si/No ")
-            if seguir.lower() == "no":
-                break
-            else:
+        # if usuario_existente:
+        #     print("nombre de usuario ya existe")
+        #     seguir = input("¿Desea continuar? Si/No ")
+        #     if seguir.lower() == "no":
+        #         break
+        #     else:
+        #         continue
+
+        while True:
+            nombre = input('Ingrese nombre: ')
+            apellido = input('Ingrese apellido: ')
+            if nombre == '' or apellido == '':
+                print("nombre y/o apellido no validos")
                 continue
+            elif nombre.isalpha() == False or apellido.isalpha() == False:
+                print("nombre y/o apellido no validos")
+                continue
+            elif ' ' in nombre or ' ' in apellido:
+                print("nombre y/o apellido no validos")
+                continue
+            else:
+                break
+
+        while True:
+            correo = input('Ingrese correo: ')
+            if not correo.endswith("@gmail.com"):
+                print('Debe ingresar un correo válido, usando el formato "@gmail.com"')
+                continue
+            else:
+                break
+
         while True:
             clave1 = getpass("Ingrese contraseña: ")
             clave2 = getpass("Vuelva a escribir la contraseña: ")
@@ -120,27 +144,6 @@ def registrar_usuario():
             else:
                 print("Las contraseñas no coinciden, reintente")
         
-        while True:
-            nombre = input('Ingrese nombre: ')
-            apellido = input('Ingrese apellido: ')
-            if nombre == '' or apellido == '':
-                print("nombre y/o apellido no validos")
-                continue
-            elif nombre.isalpha() == False or apellido.isalpha() == False:
-                print("nombre y/o apellido no validos")
-                continue
-            elif ' ' in nombre or ' ' in apellido:
-                print("nombre y/o apellido no validos")
-                continue
-            else:
-                break
-        while True:
-            correo = input('Ingrese correo: ')
-            if not correo.endswith("@gmail.com"):
-                print('Debe ingresar un correo válido, usando el formato "@gmail.com"')
-                continue
-            else:
-                break
 
         os.system("cls")
         print("-------- TIPOS DE USUARIOS --------")
@@ -169,3 +172,4 @@ def registrar_usuario():
         break
 
         
+menu_login()
