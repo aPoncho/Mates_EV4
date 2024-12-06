@@ -23,9 +23,13 @@ def menu_login():
 ================================\n""")
         
         if opcion == '1':
-            ingreso = login()
-            if ingreso == True:
-                return True    
+            user = login()
+            if user is not None:
+                print(user.nombre)
+                input()
+                #ESTA WEA NO QUIERE ROMPER EL BUCLE POR ALGUN MOTIVO
+                return user
+               
 
         elif opcion == '2':
             registrar_usuario()
@@ -36,6 +40,7 @@ def menu_login():
                 sleep(1)
                 exit()
             else:
+                input(f'algo pasa con {user}')
                 continue
         else:
             input("Opcion fuera de rango, presione cualquier tecla")
@@ -52,14 +57,14 @@ def login():
         try:
             username = input("Ingrese nombre de usuario: ")
             password = getpass("Ingrese contraseña: ")
-            user = Usuario.login(username, password)            
+            user = Usuario.login(username, password)           
             if user:
                 os.system("cls")
-                input(f"Bienvenido/a {user} \n PRESIONE UNA TECLA PARA CONTINUAR")
-                return True
+                input(f"{user.bienvenida()} \n PRESIONE UNA TECLA PARA CONTINUAR")
+                return user
             else:
                 input('Usuario y/o contraseña incorrectos, Presione cualquier tecla')
-                return False
+                return None
 
         except:
             input("ERROR INESPERADO")
@@ -165,8 +170,9 @@ def registrar_usuario():
                 print("Numero no valido")
                 continue
         
-
+        
         user = Usuario(nombre, apellido, correo, password=password)
+       
         user.registrar_usuario()
         input('Presione una tecla para continuar')
         break

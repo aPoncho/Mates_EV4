@@ -23,10 +23,9 @@ class Conexion:
     def rollback(self):
         self.db.rollback()
 
-    def agregarUsuario(self, nombre, apellido, email, password):    
+    def agregarUsuario(self, nombre, apellido, email, hash_password):    
         try:
-            sql = f"INSERT INTO usuarios (nombre, apellido, email, password)" \
-                f"VALUES ('{nombre}', '{apellido}', '{email}', '{password}')"
+            sql = f"INSERT INTO usuarios (nombre, apellido, correo, password) VALUES ('{nombre}', '{apellido}', '{email}', '{hash_password}')"
             self.ejecuta_query(sql)
             self.commit()
             return True
@@ -35,9 +34,9 @@ class Conexion:
             self.rollback()
             return False
         
-    def obtener_usuario(self, username):
+    def obtener_usuario(self, correo):
         try:
-            sql = f"SELECT * FROM usuarios WHERE username = '{username}'"
+            sql = f"SELECT * FROM usuarios WHERE correo = '{correo}'"
             cursor = self.ejecuta_query(sql)
             datos = cursor.fetchone()
             return datos

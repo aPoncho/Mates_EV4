@@ -21,10 +21,11 @@ class Usuario():
             user='userappdb'
             password_con='pass123'
             db='appdb'
+            print(self.password)
             self.password = bcrypt.hashpw(self.password.encode('utf-8'), bcrypt.gensalt())
-
+            print(self.password)
             con = Conexion(host, user, password_con, db)
-            exito = con.agregarUsuario(self.nombre, self.apellido, self.email, self.password)
+            exito = con.agregarUsuario(self.nombre, self.apellido, self.email, self.password.decode('utf-8'))
 
             if exito:
                 print("¡Usuario registrado exitosamente!") 
@@ -39,23 +40,20 @@ class Usuario():
     @staticmethod
     def login(username, password):
         host='localhost'
-        user='userempresa'
-        con_password='V3ntana.13'
-        db='empresa'
+        user='userappdb'
+        con_password='pass123'
+        db='appdb'
         try:
             con = Conexion(host, user, con_password, db)
             usuario_data = con.obtener_usuario(username)
             if usuario_data:
-                hashed_password = usuario_data[2].encode('utf-8')
-                
+                hashed_password = usuario_data[4].encode('utf-8')
                 if bcrypt.checkpw(password.encode('utf-8'), hashed_password):
                     return Usuario(
-                        nombre = usuario_data[3],
-                        apellido = usuario_data[4],
-                        correo = usuario_data[5],
-                        username = usuario_data[1],
-                        password_hash = usuario_data[2],
-                        tipo_usuario = usuario_data[6]
+                        nombre = usuario_data[1],
+                        apellido = usuario_data[2],
+                        email = usuario_data[3],
+                        password = usuario_data[4]
                     )
             else:    
                 return None
