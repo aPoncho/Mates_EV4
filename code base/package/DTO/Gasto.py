@@ -36,7 +36,7 @@ class Gasto():
 
         for i in ultimos_gastos:
             gasto = Gasto(i[2], i[3], i[4], i[0])
-            detalle = f"ID: {gasto.id}, Monto: {gasto.monto}, Fecha: {gasto.fecha}, Descripción: {gasto.descripcion}"
+            detalle = f"\033[31m🡾🡾\033[0mID: {gasto.id}, Monto: {gasto.monto}, Fecha: {gasto.fecha}, Descripción: {gasto.descripcion}"
             detalles.append(detalle)
 
         return detalles
@@ -67,30 +67,33 @@ class Gasto():
         if not gastos:
             print("No hay gastos registrados para este usuario.")
             return None
+        try:
+            # Obtener montos y generar índices como eje x (suponiendo que están en orden cronológico)
+            montos = [gasto[2] for gasto in gastos]  # Se asume que el monto está en el índice 0
+            x = np.arange(len(montos))  # Índices como eje x
 
-        # Obtener montos y generar índices como eje x (suponiendo que están en orden cronológico)
-        montos = [gasto[0] for gasto in gastos]  # Se asume que el monto está en el índice 0
-        x = np.arange(len(montos))  # Índices como eje x
+            # Ajuste de regresión lineal
+            coeficientes = np.polyfit(x, montos, 1)  # Regresión lineal (grado 1)
+            pendiente, intercepto = coeficientes
 
-        # Ajuste de regresión lineal
-        coeficientes = np.polyfit(x, montos, 1)  # Regresión lineal (grado 1)
-        pendiente, intercepto = coeficientes
+            # Generar valores de la línea de tendencia
+            tendencia = np.polyval(coeficientes, x)
 
-        # Generar valores de la línea de tendencia
-        tendencia = np.polyval(coeficientes, x)
+            # Visualización
+            plt.figure(figsize=(10, 6))
+            plt.scatter(x, montos, color='blue', label='Montos')
+            plt.plot(x, tendencia, color='red', label=f'Tendencia: y = {pendiente:.2f}x + {intercepto:.2f}')
+            plt.title("Tendencia de los gastos")
+            plt.xlabel("Número de gasto (índice)")
+            plt.ylabel("Monto")
+            plt.legend()
+            plt.grid(True)
+            plt.show()
 
-        # Visualización
-        plt.figure(figsize=(10, 6))
-        plt.scatter(x, montos, color='blue', label='Montos')
-        plt.plot(x, tendencia, color='red', label=f'Tendencia: y = {pendiente:.2f}x + {intercepto:.2f}')
-        plt.title("Tendencia de los gastos")
-        plt.xlabel("Número de gasto (índice)")
-        plt.ylabel("Monto")
-        plt.legend()
-        plt.grid(True)
-        plt.show()
-
-        return pendiente, intercepto
+            return pendiente, intercepto
+        except Exception as e:
+            print(e)
+            input('No tiene suficientes gastos para mostrar una tendencia')
 
     def ingresar(self, user_id):
         try:

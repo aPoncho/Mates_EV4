@@ -16,7 +16,7 @@ def obtener_ingresos(id):
 def ingresar_ingreso(user_id, monto, fecha, descripcion):
     try:
         con = Conexion()
-        sql = f"INSERT INTO ingresos(id_usuario, monto_ingreso, fecha_ingreso, descripcion) VALUES ({user_id}, {monto}, {fecha} '{descripcion}')"
+        sql = f"INSERT INTO ingresos(id_usuario, monto_ingreso, fecha_ingreso, descripcion) VALUES ({user_id}, {monto}, '{fecha}', '{descripcion}')"
         con.ejecuta_query(sql)
         con.commit()
         input("datos ingresados satisfactoriamente")

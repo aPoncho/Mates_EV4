@@ -109,7 +109,8 @@ def menu_ingreso():
         print("1. Mostrar los últimos 5 ingresos")
         print("2. Calcular el promedio de los ingresos")
         print("3. Mostrar tendencia de los ingresos")
-        print("4. Salir")
+        print("4. Ingresar ingreso")
+        print("5. Salir")
 
         opcion = input("Seleccione una opción: ")
 
@@ -119,15 +120,17 @@ def menu_ingreso():
                 print("\n--- Últimos 5 ingresos ---")
                 for detalle in ultimos_ingresos:
                     print(detalle)
+                    input()
             else:
-                print("No hay ingresos disponibles.")
+                input("No hay ingresos disponibles.")
 
         elif opcion == "2":
             promedio = Ingreso.calcular_promedio_ingresos(user.id)
             if promedio is not None:
                 print(f"El promedio de los ingresos es: {promedio:.2f}")
+                input()
             else:
-                print("No hay ingresos registrados para este usuario.")
+                input("No hay ingresos registrados para este usuario.")
 
         elif opcion == "3":
             resultado = Ingreso.calcular_tendencia_ingresos(user.id)
@@ -136,7 +139,32 @@ def menu_ingreso():
                 print(f"Tendencia de ingresos: Pendiente = {pendiente:.2f}, Intercepto = {intercepto:.2f}")
 
         elif opcion == "4":
-            print("Saliendo del menú. Hasta luego!")
+                while True:
+                    try:
+                        monto = int(input("Ingrese monto: "))
+                        break
+                    except ValueError:
+                        print("valor invalido")
+                        continue
+                    
+                descripcion = input("Ingrese descripcion: ")
+                while True:
+                    fecha = input("Ingrese una fecha en formato YYYY-MM-DD: ")
+                    try:
+                        anio, mes, dia = map(int, fecha.split('-'))
+                        if 1 <= mes <= 12 and 1 <= dia <= 31:
+                            fecha_obj = datetime.strptime(fecha, "%Y-%m-%d")
+                            break
+                        else:
+                            print("Fecha inválida. Asegúrese de usar un formato correcto.")
+                            continue
+                    except ValueError:
+                        print("Entrada inválida. Por favor, use el formato YYYY-MM-DD.")
+                data = Ingreso(monto, fecha_obj, descripcion)
+                data.ingresar(user.id)
+
+        elif opcion == "5":
+            print("Saliendo del menú. Hasta luego!")           
             break
 
         else:
