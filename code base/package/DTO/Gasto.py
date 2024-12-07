@@ -30,11 +30,12 @@ class Gasto():
     @staticmethod
     def obtener_ultimos_gastos(id_user):
         gastos = Gastos.obtener_gastos(id_user)
-        ultimos_gastos = gastos[:-5]  
+        print(gastos)
+        ultimos_gastos = gastos[:5]  
         detalles = []
 
         for i in ultimos_gastos:
-            gasto = Gasto(i[0], i[2], i[3], i[4])
+            gasto = Gasto(i[2], i[3], i[4], i[0])
             detalle = f"ID: {gasto.id}, Monto: {gasto.monto}, Fecha: {gasto.fecha}, Descripción: {gasto.descripcion}"
             detalles.append(detalle)
 

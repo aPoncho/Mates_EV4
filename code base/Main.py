@@ -45,14 +45,16 @@ def menu_gasto():
             opcion = input("Seleccione una opción: ")
 
             if opcion == "1":
-                id_user = input("Ingrese el ID del usuario: ")
-                ultimos_gastos = Gasto.obtener_ultimos_gastos(id_user)
+                #id_user = input("Ingrese el ID del usuario: ")
+                ultimos_gastos = Gasto.obtener_ultimos_gastos(user.id)
                 if ultimos_gastos:
                     print("\n--- Últimos 5 Gastos ---")
                     for detalle in ultimos_gastos:
                         print(detalle)
+                        input()
                 else:
                     print("No hay gastos disponibles.")
+                    input()
 
             elif opcion == "2":
                 id_user = input("Ingrese el ID del usuario: ")
