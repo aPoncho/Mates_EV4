@@ -13,15 +13,15 @@ def obtener_gastos(id):
         print(e)
         print("Revise su conexion con la base de datos")
 
-def ingresar_gasto(user_id, monto, descripcion):
+def ingresar_gasto(user_id, monto, fecha, descripcion):
     try:
         con = Conexion()
-        sql = f"INSERT INTO gastos(id_usuario, monto_gasto,	descripcion) VALUES ('{user_id}', '{monto}', '{descripcion}')"
+        sql = f"INSERT INTO gastos(id_usuario, monto_gasto, fecha_gasto, descripcion) VALUES ({user_id}, {monto}, '{fecha}', '{descripcion}')"
         con.ejecuta_query(sql)
         con.commit()
-        print("datos ingresados satisfactoriamente")
+        input("datos ingresados satisfactoriamente")
     except Exception as e:
         con.rollback()
         print(e)
-        print("Revise su conexion con la base de datos")
+        input("Revise su conexion con la base de datos")
 

@@ -1,6 +1,7 @@
 import package.view.Login as login
 from package.DTO.Ingreso import Ingreso
 from package.DTO.Gasto import Gasto
+from datetime import datetime
 import os
 
 
@@ -38,7 +39,8 @@ def menu_gasto():
             print("1. Mostrar los últimos 5 gastos")
             print("2. Calcular el promedio de los gastos")
             print("3. Mostrar tendencia de los gastos")
-            print("4. Salir")
+            print("4. Ingresar gasto")
+            print("5. Salir")
 
             opcion = input("Seleccione una opción: ")
 
@@ -66,8 +68,34 @@ def menu_gasto():
                 if resultado:
                     pendiente, intercepto = resultado
                     print(f"Tendencia de gastos: Pendiente = {pendiente:.2f}, Intercepto = {intercepto:.2f}")
+                
+            elif opcion == '4':
+                id_user = input("Ingrese el ID del usuario: ")
+                while True:
+                    try:
+                        monto = int(input("Ingrese monto: "))
+                        break
+                    except ValueError:
+                        print("valor invalido")
+                        continue
+                    
+                descripcion = input("Ingrese descripcion: ")
+                while True:
+                    fecha = input("Ingrese una fecha en formato YYYY-MM-DD: ")
+                    try:
+                        anio, mes, dia = map(int, fecha.split('-'))
+                        if 1 <= mes <= 12 and 1 <= dia <= 31:
+                            fecha_obj = datetime.strptime(fecha, "%Y-%m-%d")
+                            break
+                        else:
+                            print("Fecha inválida. Asegúrese de usar un formato correcto.")
+                            continue
+                    except ValueError:
+                        print("Entrada inválida. Por favor, use el formato YYYY-MM-DD.")
+                data = Gasto(monto, fecha_obj, descripcion)
+                data.ingresar(user.id)
 
-            elif opcion == "4":
+            elif opcion == "5":
                 print("Saliendo del menú. Hasta luego!")
                 break
 
@@ -118,6 +146,7 @@ def menu_ingreso():
             print("Opción no válida. Por favor, intente nuevamente.")        
 
 while True:
+    global user
     user = login.menu_login()
     if user is not None:
         menu()

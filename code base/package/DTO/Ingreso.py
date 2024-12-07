@@ -77,6 +77,6 @@ class Ingreso():
     
     def ingresar(self, user_id):
         try:
-            Ingresos.ingresar_ingreso(user_id, self.monto, self.descripcion)
+            Ingresos.ingresar_ingreso(user_id, self.monto, self.fecha, self.descripcion)
         except Exception as e:
             input(e)
