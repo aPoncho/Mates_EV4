@@ -45,34 +45,30 @@ def menu_gasto():
             opcion = input("Seleccione una opción: ")
 
             if opcion == "1":
-                #id_user = input("Ingrese el ID del usuario: ")
                 ultimos_gastos = Gasto.obtener_ultimos_gastos(user.id)
                 if ultimos_gastos:
                     print("\n--- Últimos 5 Gastos ---")
                     for detalle in ultimos_gastos:
                         print(detalle)
-                        input()
+                    input()    
                 else:
                     print("No hay gastos disponibles.")
                     input()
 
             elif opcion == "2":
-                id_user = input("Ingrese el ID del usuario: ")
-                promedio = Gasto.calcular_promedio_gastos(id_user)
+                promedio = Gasto.calcular_promedio_gastos(user.id)
                 if promedio is not None:
                     print(f"El promedio de los gastos es: {promedio:.2f}")
                 else:
                     print("No hay gastos registrados para este usuario.")
 
             elif opcion == "3":
-                id_user = input("Ingrese el ID del usuario: ")
-                resultado = Gasto.calcular_tendencia_gastos(id_user)
+                resultado = Gasto.calcular_tendencia_gastos(user.id)
                 if resultado:
                     pendiente, intercepto = resultado
                     print(f"Tendencia de gastos: Pendiente = {pendiente:.2f}, Intercepto = {intercepto:.2f}")
                 
             elif opcion == '4':
-                id_user = input("Ingrese el ID del usuario: ")
                 while True:
                     try:
                         monto = int(input("Ingrese monto: "))
@@ -116,8 +112,7 @@ def menu_ingreso():
         opcion = input("Seleccione una opción: ")
 
         if opcion == "1":
-            id_user = input("Ingrese el ID del usuario: ")
-            ultimos_ingresos = Ingreso.obtener_ultimos_ingresos(id_user)
+            ultimos_ingresos = Ingreso.obtener_ultimos_ingresos(user.id)
             if ultimos_ingresos:
                 print("\n--- Últimos 5 ingresos ---")
                 for detalle in ultimos_ingresos:
@@ -126,16 +121,14 @@ def menu_ingreso():
                 print("No hay ingresos disponibles.")
 
         elif opcion == "2":
-            id_user = input("Ingrese el ID del usuario: ")
-            promedio = Ingreso.calcular_promedio_ingresos(id_user)
+            promedio = Ingreso.calcular_promedio_ingresos(user.id)
             if promedio is not None:
                 print(f"El promedio de los ingresos es: {promedio:.2f}")
             else:
                 print("No hay ingresos registrados para este usuario.")
 
         elif opcion == "3":
-            id_user = input("Ingrese el ID del usuario: ")
-            resultado = Ingreso.calcular_tendencia_ingresos(id_user)
+            resultado = Ingreso.calcular_tendencia_ingresos(user.id)
             if resultado:
                 pendiente, intercepto = resultado
                 print(f"Tendencia de ingresos: Pendiente = {pendiente:.2f}, Intercepto = {intercepto:.2f}")
