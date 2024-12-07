@@ -1,8 +1,11 @@
 import pymysql
-
+host='localhost'
+user='userappdb'
+con_password='pass123'
+db='appdb'
 
 class Conexion:
-    def __init__(self, host, user, password, db):
+    def __init__(self, host = 'localhost', user = 'userappdb', password = 'pass123', db = 'appdb'):
         self.db = pymysql.connect(
             host=host,
             user=user,

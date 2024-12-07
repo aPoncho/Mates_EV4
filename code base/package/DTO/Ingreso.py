@@ -74,3 +74,9 @@ class Ingreso():
         plt.show()
 
         return pendiente, intercepto
+    
+    def ingresar(self, user_id):
+        try:
+            Ingresos.ingresar_ingreso(user_id, self.monto, self.descripcion)
+        except Exception as e:
+            input(e)

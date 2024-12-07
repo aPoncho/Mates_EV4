@@ -25,9 +25,10 @@ def menu_login():
         if opcion == '1':
             user = login()
             if user is not None:
+                print(user)
                 print(user.nombre)
                 input()
-                #ESTA WEA NO QUIERE ROMPER EL BUCLE POR ALGUN MOTIVO
+                #ESTA return NO QUIERE ROMPER EL BUCLE POR ALGUN MOTIVO
                 return user
                
 
@@ -55,7 +56,7 @@ def login():
     
     while True:
         try:
-            username = input("Ingrese nombre de usuario: ")
+            username = input("Ingrese correo: ")
             password = getpass("Ingrese contraseña: ")
             user = Usuario.login(username, password)           
             if user:
@@ -178,4 +179,3 @@ def registrar_usuario():
         break
 
         
-menu_login()

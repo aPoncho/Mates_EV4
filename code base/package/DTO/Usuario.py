@@ -53,7 +53,8 @@ class Usuario():
                         nombre = usuario_data[1],
                         apellido = usuario_data[2],
                         email = usuario_data[3],
-                        password = usuario_data[4]
+                        password = usuario_data[4],
+                        id = usuario_data[0]
                     )
             else:    
                 return None

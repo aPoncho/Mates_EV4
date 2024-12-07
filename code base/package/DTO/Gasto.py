@@ -90,3 +90,10 @@ class Gasto():
         plt.show()
 
         return pendiente, intercepto
+
+    def ingresar(self, user_id):
+        try:
+            Gastos.ingresar_gasto(user_id, self.monto, self.descripcion)
+        except Exception as e:
+            input(e)
+            

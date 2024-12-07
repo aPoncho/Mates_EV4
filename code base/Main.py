@@ -1,11 +1,13 @@
 import package.view.Login as login
 from package.DTO.Ingreso import Ingreso
 from package.DTO.Gasto import Gasto
+import os
 
 
 
 def menu():
     while True:
+        os.system("cls")
         print("\n--- Menú de Gastos ---")
         print("1. Gastos")
         print("2. Ingresos")
@@ -31,8 +33,9 @@ def menu():
 
 def menu_gasto():
         while True:
+            os.system("cls")
             print("\n--- Menú de Gastos ---")
-            print("1. Mostrar los últimos 3 gastos")
+            print("1. Mostrar los últimos 5 gastos")
             print("2. Calcular el promedio de los gastos")
             print("3. Mostrar tendencia de los gastos")
             print("4. Salir")
@@ -43,7 +46,7 @@ def menu_gasto():
                 id_user = input("Ingrese el ID del usuario: ")
                 ultimos_gastos = Gasto.obtener_ultimos_gastos(id_user)
                 if ultimos_gastos:
-                    print("\n--- Últimos 3 Gastos ---")
+                    print("\n--- Últimos 5 Gastos ---")
                     for detalle in ultimos_gastos:
                         print(detalle)
                 else:
@@ -73,8 +76,9 @@ def menu_gasto():
 
 def menu_ingreso():
     while True:
+        os.system("cls")
         print("\n--- Menú de ingresos ---")
-        print("1. Mostrar los últimos 3 ingresos")
+        print("1. Mostrar los últimos 5 ingresos")
         print("2. Calcular el promedio de los ingresos")
         print("3. Mostrar tendencia de los ingresos")
         print("4. Salir")
@@ -85,7 +89,7 @@ def menu_ingreso():
             id_user = input("Ingrese el ID del usuario: ")
             ultimos_ingresos = Ingreso.obtener_ultimos_ingresos(id_user)
             if ultimos_ingresos:
-                print("\n--- Últimos 3 ingresos ---")
+                print("\n--- Últimos 5 ingresos ---")
                 for detalle in ultimos_ingresos:
                     print(detalle)
             else:
