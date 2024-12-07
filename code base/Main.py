@@ -59,8 +59,10 @@ def menu_gasto():
                 promedio = Gasto.calcular_promedio_gastos(user.id)
                 if promedio is not None:
                     print(f"El promedio de los gastos es: {promedio:.2f}")
+                    input()
                 else:
                     print("No hay gastos registrados para este usuario.")
+                    input()
 
             elif opcion == "3":
                 resultado = Gasto.calcular_tendencia_gastos(user.id)
