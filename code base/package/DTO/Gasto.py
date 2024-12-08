@@ -12,11 +12,9 @@ class Gasto():
     def __str__(self):
         return f'\033[31m🡾🡾\033[0mID: {self.id} \nFECHA: {self.fecha} \nMONTO: {self.monto}\nDESCRIPCION: {self.descripcion}'
 
-    def total_gastos(self, user):
-        correo = user.email
-
+    def total_gastos(self, user_id):
         try:
-            datos = Gastos.obtener_gastos(correo)
+            datos = Gastos.obtener_gastos(user_id)
             total_gastos = 0
 
             for dato in datos:
@@ -27,6 +25,8 @@ class Gasto():
         
         except:
             print('error inesperado')
+            return None
+
     @staticmethod
     def obtener_ultimos_gastos(id_user):
         gastos = Gastos.obtener_gastos(id_user)
